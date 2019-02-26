@@ -2,6 +2,7 @@ import graphene
 from graphene_django import DjangoObjectType
 
 from .models import Trainer
+from users.schema import UserType
 
 class TrainerType(DjangoObjectType):
     class Meta:
@@ -17,19 +18,26 @@ class CreateTrainer(graphene.Mutation):
     id = graphene.Int()
     name = graphene.String()
     age = graphene.Date()
+    created_by = graphene.Field(UserType)
 
     class Arguments:
         name = graphene.String()
         age = graphene.Date()
 
     def mutate(self, info, name, age):
-        trainer = Trainer(name=name, age=age)
+        user = info.context.user or None
+        trainer = Trainer(
+            name=name,
+            age=age,
+            created_by=user,
+        )
         trainer.save()
 
         return CreateTrainer(
             id=trainer.id,
             name=trainer.name,
             age=trainer.age,
+            created_by=trainer.created_by,
         )
 
 class Mutation(graphene.ObjectType):
