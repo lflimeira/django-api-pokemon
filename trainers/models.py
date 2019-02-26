@@ -8,3 +8,11 @@ class Trainer(models.Model):
 
     def __str__(self):
         return self.name
+
+class CapturedPokemon(models.Model):
+    pokemon_id = models.IntegerField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    trainer = models.ForeignKey('trainers.Trainer', related_name='captured_pokemon', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.pokemon_id
