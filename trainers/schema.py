@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from .models import Trainer
+from trainers.models import Trainer
 from users.schema import UserType
 
 class TrainerType(DjangoObjectType):
@@ -11,7 +11,7 @@ class TrainerType(DjangoObjectType):
 class Query(graphene.ObjectType):
     trainers = graphene.List(TrainerType)
 
-    def resolve_trainers(self, info, **kwargs):
+    def resolve_trainers(self, info):
         return Trainer.objects.all()
 
 class CreateTrainer(graphene.Mutation):

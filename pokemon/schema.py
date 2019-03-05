@@ -3,8 +3,14 @@ import graphql_jwt
 
 import trainers.schema
 import users.schema
+import pokemons.schema
 
-class Query(users.schema.Query, trainers.schema.Query, graphene.ObjectType):
+class Query(
+        users.schema.Query, 
+        trainers.schema.Query, 
+        pokemons.schema.Query, 
+        graphene.ObjectType
+    ):
     pass
 
 class Mutation(users.schema.Mutation, trainers.schema.Mutation, graphene.ObjectType):
