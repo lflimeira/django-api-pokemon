@@ -1,5 +1,6 @@
-django==2.1.4
+django==2.1.5
 graphene-django==2.2.0
 django-filter==2.0.0
 django-graphql-jwt==0.1.5
 pylint==2.2.2
+pokepy==0.5.1
